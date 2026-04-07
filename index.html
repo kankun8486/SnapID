@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapID - Trợ lý AI Tạo Ảnh Thẻ Chuyên Nghiệp</title>
-    <meta name="description" content="SnapID giúp bạn tạo ảnh hộ chiếu, ảnh thẻ, ảnh visa chuẩn quốc tế bằng công nghệ AI ngay trên điện thoại.">
+    <title id="page-title">SnapID - Trợ lý AI Tạo Ảnh Thẻ Chuyên Nghiệp</title>
+    <meta id="page-desc" name="description" content="SnapID giúp bạn tạo ảnh hộ chiếu, ảnh thẻ, ảnh visa chuẩn quốc tế bằng công nghệ AI ngay trên điện thoại.">
     <style>
         :root {
             --bg-color: #0F172A; /* Màu nền Navy */
@@ -18,19 +18,47 @@
             color: var(--text-main);
             text-align: center;
             line-height: 1.6;
+            position: relative; /* Để căn chỉnh nút chọn ngôn ngữ */
         }
+        
+        /* Box chọn ngôn ngữ góc phải */
+        .lang-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .lang-selector select {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .lang-selector select option {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 50px 20px;
+            padding: 60px 20px;
         }
+        
+        /* Cập nhật CSS Logo bo góc và đổ bóng y hệt App */
         .logo {
-            width: 150px;
-            height: 150px;
-            border-radius: 30px;
-            box-shadow: 0 0 40px rgba(56, 189, 248, 0.4);
-            margin-bottom: 20px;
+            width: 160px;
+            height: 160px;
+            border-radius: 32px; /* Tỷ lệ bo góc chuẩn */
+            box-shadow: 0 0 45px rgba(56, 189, 248, 0.5); /* Đổ bóng Neon */
+            margin-bottom: 25px;
+            border: 2px solid rgba(56, 189, 248, 0.1);
         }
+        
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
@@ -87,27 +115,36 @@
 </head>
 <body>
 
+    <div class="lang-selector">
+        <select id="langSwitcher" onchange="changeLanguage(this.value)">
+            <option value="vi" selected>🇻🇳 Tiếng Việt</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="ko">🇰🇷 한국어</option>
+        </select>
+    </div>
+
     <div class="container">
         <img src="snapid_logo.png" alt="SnapID Logo" class="logo">
         
         <h1>SnapID</h1>
-        <p class="subtitle">Professional AI Passport & ID Photo Maker</p>
+        <p class="subtitle" id="subtitle">Ứng dụng tạo ảnh thẻ chuyên nghiệp</p>
         
-        <a href="#link_ch_play_cua_ban" class="btn-download">TẢI XUỐNG TRÊN GOOGLE PLAY</a>
+        <a href="#link_ch_play_cua_ban" class="btn-download" id="btn_download">TẢI XUỐNG TRÊN GOOGLE PLAY</a>
 
         <div style="margin-top: 60px;">
             <div class="features">
                 <div class="feature-box">
-                    <h3>✨ AI Cắt Nền</h3>
-                    <p>Tự động tách nền và thay phông xanh/trắng chuẩn quốc tế.</p>
+                    <h3 id="f1_title">✨ AI Cắt Nền</h3>
+                    <p id="f1_desc">Tự động tách nền và thay phông xanh/trắng chuẩn quốc tế.</p>
                 </div>
                 <div class="feature-box">
-                    <h3>📏 Chuẩn Kích Thước</h3>
-                    <p>Hỗ trợ kích thước ảnh hộ chiếu, visa của hơn 100 quốc gia.</p>
+                    <h3 id="f2_title">📏 Chuẩn Kích Thước</h3>
+                    <p id="f2_desc">Hỗ trợ kích thước ảnh hộ chiếu, visa của hơn 100 quốc gia.</p>
                 </div>
                 <div class="feature-box">
-                    <h3>👔 Trang Phục Thông Minh</h3>
-                    <p>Ghép vest, áo sơ mi nam/nữ chuyên nghiệp chỉ với 1 chạm.</p>
+                    <h3 id="f3_title">👔 Trang Phục Thông Minh</h3>
+                    <p id="f3_desc">Ghép vest, áo sơ mi nam/nữ chuyên nghiệp chỉ với 1 chạm.</p>
                 </div>
             </div>
         </div>
@@ -115,11 +152,91 @@
         <footer>
             <p>&copy; 2026 KANKUN DEV. All rights reserved.</p>
             <div>
-                <a href="privacy_policy.html">Privacy Policy</a> | 
-                <a href="mailto:email_cua_ban@gmail.com">Contact Support</a>
+                <a href="privacy_policy.html" id="footer_privacy">Chính sách bảo mật</a> | 
+                <a href="mailto:email_cua_ban@gmail.com" id="footer_contact">Liên hệ hỗ trợ</a>
             </div>
         </footer>
     </div>
+
+    <script>
+        const translations = {
+            "vi": {
+                "title": "SnapID - Trợ lý AI Tạo Ảnh Thẻ Chuyên Nghiệp",
+                "desc": "SnapID giúp bạn tạo ảnh hộ chiếu, ảnh thẻ, ảnh visa chuẩn quốc tế bằng công nghệ AI ngay trên điện thoại.",
+                "subtitle": "Ứng dụng tạo ảnh thẻ chuyên nghiệp",
+                "btn_download": "TẢI XUỐNG TRÊN GOOGLE PLAY",
+                "f1_title": "✨ AI Cắt Nền",
+                "f1_desc": "Tự động tách nền và thay phông xanh/trắng chuẩn quốc tế.",
+                "f2_title": "📏 Chuẩn Kích Thước",
+                "f2_desc": "Hỗ trợ kích thước ảnh hộ chiếu, visa của hơn 100 quốc gia.",
+                "f3_title": "👔 Trang Phục Thông Minh",
+                "f3_desc": "Ghép vest, áo sơ mi nam/nữ chuyên nghiệp chỉ với 1 chạm.",
+                "footer_privacy": "Chính sách bảo mật",
+                "footer_contact": "Liên hệ hỗ trợ"
+            },
+            "en": {
+                "title": "SnapID - Professional AI ID Photo Maker",
+                "desc": "SnapID helps you create international standard passport, ID, and visa photos using AI technology right on your phone.",
+                "subtitle": "Professional ID Photo Maker App",
+                "btn_download": "DOWNLOAD ON GOOGLE PLAY",
+                "f1_title": "✨ AI Background Cut",
+                "f1_desc": "Automatically remove background and replace with standard blue/white.",
+                "f2_title": "📏 Standard Sizes",
+                "f2_desc": "Supports passport and visa photo sizes for over 100 countries.",
+                "f3_title": "👔 Smart Outfits",
+                "f3_desc": "Add professional suits and shirts for men/women with just 1 tap.",
+                "footer_privacy": "Privacy Policy",
+                "footer_contact": "Contact Support"
+            },
+            "ja": {
+                "title": "SnapID - プロ仕様のAI証明写真アプリ",
+                "desc": "SnapIDは、スマホのAI技術を使って国際基準のパスポート、証明写真、ビザ写真を作成するのに役立ちます。",
+                "subtitle": "プロ仕様の証明写真作成アプリ",
+                "btn_download": "Google Play で手に入れよう",
+                "f1_title": "✨ AI 背景切り抜き",
+                "f1_desc": "背景を自動的に分離し、国際基準の青/白背景に置き換えます。",
+                "f2_title": "📏 標準サイズ",
+                "f2_desc": "100カ国以上のパスポートやビザの写真サイズに対応しています。",
+                "f3_title": "👔 スマートな服装",
+                "f3_desc": "ワンタップで男女のプロ仕様のスーツやシャツを合成します。",
+                "footer_privacy": "プライバシーポリシー",
+                "footer_contact": "サポートに連絡"
+            },
+            "ko": {
+                "title": "SnapID - 전문 AI 증명사진 도우미",
+                "desc": "SnapID는 스마트폰에서 AI 기술을 사용하여 국제 표준 여권, 신분증 및 비자 사진을 만들 수 있도록 도와줍니다.",
+                "subtitle": "전문적인 증명사진 제작 앱",
+                "btn_download": "Google Play에서 다운로드",
+                "f1_title": "✨ AI 배경 제거",
+                "f1_desc": "배경을 자동으로 분리하고 국제 표준 파란색/흰색 배경으로 교체합니다.",
+                "f2_title": "📏 표준 크기",
+                "f2_desc": "100개국 이상의 여권 및 비자 사진 크기를 지원합니다.",
+                "f3_title": "👔 스마트 의상",
+                "f3_desc": "원탭으로 남녀 전문 정장과 셔츠를 합성합니다.",
+                "footer_privacy": "개인정보 처리방침",
+                "footer_contact": "고객 지원"
+            }
+        };
+
+        function changeLanguage(lang) {
+            // Thay đổi nội dung thẻ Meta
+            document.getElementById("page-title").innerText = translations[lang].title;
+            document.getElementById("page-desc").setAttribute("content", translations[lang].desc);
+            document.documentElement.lang = lang; // Cập nhật thẻ html lang
+
+            // Thay đổi Text hiển thị trên Web
+            document.getElementById("subtitle").innerText = translations[lang].subtitle;
+            document.getElementById("btn_download").innerText = translations[lang].btn_download;
+            document.getElementById("f1_title").innerText = translations[lang].f1_title;
+            document.getElementById("f1_desc").innerText = translations[lang].f1_desc;
+            document.getElementById("f2_title").innerText = translations[lang].f2_title;
+            document.getElementById("f2_desc").innerText = translations[lang].f2_desc;
+            document.getElementById("f3_title").innerText = translations[lang].f3_title;
+            document.getElementById("f3_desc").innerText = translations[lang].f3_desc;
+            document.getElementById("footer_privacy").innerText = translations[lang].footer_privacy;
+            document.getElementById("footer_contact").innerText = translations[lang].footer_contact;
+        }
+    </script>
 
 </body>
 </html>
